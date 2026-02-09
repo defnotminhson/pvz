@@ -13,11 +13,9 @@ class Tile(pygame.sprite.Sprite):
         self.clicked = False
 
 class MapService:
-    def __init__(self,screen):
-        self.tileSizeX = 50
-        self.tileSizeY = 50
-        self.mapPosX = 0
-        self.mapPosY = 0
+    def __init__(self, screen):
+        self.tileSize = (50, 50)
+        self.mapPos = (0, 0)
         self.screen = screen
         self.tilesGroup = pygame.sprite.Group()
         self.tileGlow = True
@@ -30,9 +28,8 @@ class MapService:
                     tile.clicked = True
                     break
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-            mouse_pos = event.pos
             for tile in self.tilesGroup:
-                if tile.rect.collidepoint(mouse_pos):
+                if tile.clicked:
                     tile.clicked = False
                     break
 
@@ -40,10 +37,12 @@ class MapService:
         #self.tilesGroup.clear()
         for row in range(rows):
             for col in range(cols):
-                tile_x = self.mapPosX + col * (self.tileSizeX + offset)
-                tile_y = self.mapPosY + row * (self.tileSizeY + offset)
+                mapPosX, mapPosY = self.mapPos
+                tileSizeX, tileSizeY = self.tileSize
+                tile_x = mapPosX + col * (tileSizeX + offset)
+                tile_y = mapPosY + row * (tileSizeY + offset)
                 
-                tile = Tile(self.tileSizeX, self.tileSizeY, tile_x, tile_y, color)
+                tile = Tile(tileSizeX, tileSizeY, tile_x, tile_y, color)
                 self.tilesGroup.add(tile)
                 
         return self.tilesGroup

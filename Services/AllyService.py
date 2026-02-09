@@ -11,8 +11,10 @@ class AllyService:
         self.screen = screen
 
     def spawnAlly(self, name: str, posX: int, posY: int):
-        newAlly = Allies[name]()
-        newAlly.rect.center = [posX, posY]
+        newAlly = Allies[name](
+            screen=self.screen,
+            position=[posX, posY],
+        )
         self.allyGroup.add(newAlly)
 
     def handleClick(self, event, tilesGroup):

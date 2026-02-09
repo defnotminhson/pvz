@@ -17,8 +17,8 @@ mapService = MapService(screen)
 uiService = UiService(screen)
 allyService = AllyService(screen)
 
-mapService.mapPosX, mapService.mapPosY = 325, 100
-mapService.tileSizeX, mapService.tileSizeY = 100, 110
+mapService.mapPos = (325, 100)
+mapService.tileSize = (100, 110)
 
 tiles = mapService.createGrid(9, 5, 4, (0, 200, 0, 0)) 
 
