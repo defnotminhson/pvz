@@ -3,61 +3,64 @@ from typing import Tuple
 
 RGBA = Tuple[int, int, int, int]
 
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, width: int, height: int, posX: int, posY: int, color: RGBA):
+        super().__init__()
+        self.image = pygame.Surface([width, height], pygame.SRCALPHA)
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [posX, posY]
+        self.clicked = False
+
 class MapService:
     def __init__(self,screen):
         self.tileSizeX = 50
         self.tileSizeY = 50
-        self.map_x = 0
-        self.map_y = 0
+        self.mapPosX = 0
+        self.mapPosY = 0
         self.screen = screen
-        self.tiles = []
+        self.tilesGroup = pygame.sprite.Group()
+        self.tileGlow = True
 
-    def setPosition(self, x: int, y: int):
-        self.map_x = x
-        self.map_y = y
-    
-    def setSize(self, x: int, y: int):
-        self.tileSizeX = x
-        self.tileSizeY = y
+    def handleClick(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            mouse_pos = event.pos
+
+            for tile in self.tilesGroup:
+                if tile.rect.collidepoint(mouse_pos):
+                    tile.clicked = True
+                    #print("Tile clicked at:", tile.rect.topleft)
+                    break
 
     def createGrid(self, cols: int, rows: int, offset: int, color: RGBA):
-        self.tiles.clear()
-
+        #self.tilesGroup.clear()
         for row in range(rows):
             for col in range(cols):
-                tile_x = self.map_x + col * (self.tileSizeX + offset)
-                tile_y = self.map_y + row * (self.tileSizeY + offset)
-
-                rect = pygame.Rect(
-                    tile_x,
-                    tile_y,
-                    self.tileSizeX,
-                    self.tileSizeY
-                )
-
-                tile_surface = pygame.Surface(
-                    (self.tileSizeX, self.tileSizeY),
-                    pygame.SRCALPHA
-                )
-                tile_surface.fill(color)  # RGBA (alpha = 120)
-
-                self.tiles.append({
-                    "rect": rect,
-                    "surface": tile_surface
-                })
-
+                tile_x = self.mapPosX + col * (self.tileSizeX + offset)
+                tile_y = self.mapPosY + row * (self.tileSizeY + offset)
                 
-        return self.tiles
+                tile = Tile(self.tileSizeX, self.tileSizeY, tile_x, tile_y, color)
+                self.tilesGroup.add(tile)
+                
+        return self.tilesGroup
 
-    def drawGrid(self):
-        for tile in self.tiles:
-            self.screen.blit(tile["surface"], tile["rect"].topleft)
-            rect = tile["rect"]
-            if rect.collidepoint(pygame.mouse.get_pos()):
-                    glow_surface = pygame.Surface(rect.size, pygame.SRCALPHA)
-                    glow_surface.fill((255, 255, 255, 60))  # white glow, low alpha
-                    self.screen.blit(glow_surface, rect.topleft)
+    def drawGrid(self):            
+        self.tilesGroup.draw(self.screen)
+        #glow
+        for tile in self.tilesGroup:
+            mouse_pos = pygame.mouse.get_pos()
+            # hover glow
+            if tile.rect.collidepoint(mouse_pos) and self.tileGlow:
+                glow_surface = pygame.Surface(tile.rect.size, pygame.SRCALPHA)
+                glow_surface.fill((255, 255, 255, 60))
+                self.screen.blit(glow_surface, tile.rect.topleft)
+
+            if tile.clicked:
+                click_overlay = pygame.Surface(tile.rect.size, pygame.SRCALPHA)
+                click_overlay.fill((255, 0, 0, 80))
+                self.screen.blit(click_overlay, tile.rect.topleft)
 
 
-    def destroy(self):
-        self.tiles.clear()
+    def destroyGrid(self):
+        #self.tilesGroup.clear()
+        pass
