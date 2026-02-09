@@ -15,6 +15,7 @@ class Cat(pygame.sprite.Sprite):
         self.shootBehavior.position = position
 
         self.hp = 100
+        self.shootBehavior.bulletSpeed = 200
         
     def update(self, dt: float):
         self.shootBehavior.detectAndShoot(dt)

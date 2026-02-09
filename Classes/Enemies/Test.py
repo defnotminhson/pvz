@@ -12,6 +12,7 @@ class Test(pygame.sprite.Sprite):
         self.moveBehavior = Move(self.rect)
 
         self.hp = 100
+        self.moveBehavior.speed = 10
 
     def takeDamage(self, num: float):
         self.hp -= num

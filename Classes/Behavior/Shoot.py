@@ -1,19 +1,20 @@
 import pygame
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, position, direction, speed, size, bulletImage, screen):
+    def __init__(self, position, direction: pygame.Vector2, speed, size, bulletImage, screen):
         super().__init__()
         self.image = pygame.image.load(bulletImage).convert_alpha()
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
-        self.rect.center = position
+        self.rect.topleft = position
+        self.pos = pygame.Vector2(self.rect.topleft)
         self.direction = direction
         self.speed = speed
         self.screen = screen
 
     def update(self, dt):
-        self.rect.x += self.direction[0] * self.speed * dt
-        self.rect.y += self.direction[1] * self.speed * dt
+        self.pos += self.direction * self.speed * dt
+        self.rect.topleft = self.pos
 
         if not self.screen.get_rect().colliderect(self.rect):
             self.kill()
@@ -24,7 +25,7 @@ class Shoot:
         super().__init__()
         self.dt = 0
         self.fireCoolDown = 1
-        self.bulletSpeed = 300
+        self.bulletSpeed = 1000
         self.bulletSize = (50, 50)
         self.bulletImage = "Assets/Projectiles/potato.png"
         self.bulletsGroup = bulletGroup
@@ -40,7 +41,7 @@ class Shoot:
             
             bullet = Bullet(
                 position = self.position,
-                direction = (1, 0),   # right
+                direction = pygame.Vector2(1, 0),   # right
                 speed = self.bulletSpeed,
                 size = self.bulletSize,
                 bulletImage = self.bulletImage,

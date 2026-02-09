@@ -18,7 +18,7 @@ class EnemyService:
         self.enemyGroup.add(newEnemy)
 
     def handleClick(self, event, tilesGroup):
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 2:
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             mouse_pos = event.pos
             
             for tile in tilesGroup:
