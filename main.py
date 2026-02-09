@@ -2,6 +2,7 @@ import pygame, sys
 
 from Services.MapService import MapService
 from Services.UiService import UiService
+from Services.AllyService import AllyService
 #from Services.EnemyService import enemyService
 
 # pygame setup
@@ -14,6 +15,7 @@ dt = 0
 
 mapService = MapService(screen)
 uiService = UiService(screen)
+allyService = AllyService(screen)
 
 mapService.mapPosX, mapService.mapPosY = 325, 100
 mapService.tileSizeX, mapService.tileSizeY = 100, 110
@@ -31,12 +33,14 @@ while True:
             sys.exit()
 
         mapService.handleClick(event)
+        allyService.handleClick(event, tiles)
 
     screen.fill("white")
     screen.blit(background, (0, 0))
 
     mapService.drawGrid()
     uiService.update()
+    allyService.drawAlly()
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000

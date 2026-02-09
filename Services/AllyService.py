@@ -1,15 +1,28 @@
-# models/player.py
-from models.base import BaseEntity
+import pygame
+from Classes.Allies.Cat import Cat
 
-class Player(BaseEntity):
-    def __init__(self, name: str, hp: int):
-        super().__init__(name)
-        self.hp = hp
+Allies = {
+    "Cat": Cat,
+}
 
-    def take_damage(self, amount: int):
-        self.hp -= amount
-        if self.hp <= 0:
-            self.destroy()
+class AllyService:
+    def __init__(self, screen):
+        self.allyGroup = pygame.sprite.Group()
+        self.screen = screen
 
-    def update(self):
-        print(f"{self.name} HP: {self.hp}")
+    def spawnAlly(self, name: str, posX: int, posY: int):
+        newAlly = Allies[name]("Assets/Allies/owo.png")
+        newAlly.rect.center = [posX, posY]
+        self.allyGroup.add(newAlly)
+
+    def handleClick(self, event, tilesGroup):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            mouse_pos = event.pos
+            
+            for tile in tilesGroup:
+                if tile.rect.collidepoint(mouse_pos):
+                    x, y = pygame.mouse.get_pos()
+                    self.spawnAlly("Cat", x, y)
+    
+    def drawAlly(self):
+        self.allyGroup.draw(self.screen)
