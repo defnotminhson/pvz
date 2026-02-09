@@ -25,11 +25,15 @@ class MapService:
     def handleClick(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = event.pos
-
             for tile in self.tilesGroup:
                 if tile.rect.collidepoint(mouse_pos):
                     tile.clicked = True
-                    #print("Tile clicked at:", tile.rect.topleft)
+                    break
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            mouse_pos = event.pos
+            for tile in self.tilesGroup:
+                if tile.rect.collidepoint(mouse_pos):
+                    tile.clicked = False
                     break
 
     def createGrid(self, cols: int, rows: int, offset: int, color: RGBA):
@@ -57,7 +61,7 @@ class MapService:
 
             if tile.clicked:
                 click_overlay = pygame.Surface(tile.rect.size, pygame.SRCALPHA)
-                click_overlay.fill((255, 0, 0, 80))
+                click_overlay.fill((0, 255, 0, 80))
                 self.screen.blit(click_overlay, tile.rect.topleft)
 
 

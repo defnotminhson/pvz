@@ -38,11 +38,10 @@ while True:
     screen.fill("white")
     screen.blit(background, (0, 0))
 
+    allyService.drawAlly(dt)
     mapService.drawGrid()
     uiService.update()
-    allyService.drawAlly()
+    
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000
-
-pygame.quit()

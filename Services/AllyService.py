@@ -11,7 +11,7 @@ class AllyService:
         self.screen = screen
 
     def spawnAlly(self, name: str, posX: int, posY: int):
-        newAlly = Allies[name]("Assets/Allies/owo.png")
+        newAlly = Allies[name]()
         newAlly.rect.center = [posX, posY]
         self.allyGroup.add(newAlly)
 
@@ -21,8 +21,8 @@ class AllyService:
             
             for tile in tilesGroup:
                 if tile.rect.collidepoint(mouse_pos):
-                    x, y = pygame.mouse.get_pos()
-                    self.spawnAlly("Cat", x, y)
+                    self.spawnAlly("Cat", tile.rect.centerx, tile.rect.centery)
     
-    def drawAlly(self):
+    def drawAlly(self, dt: float):
         self.allyGroup.draw(self.screen)
+        self.allyGroup.update(dt)
