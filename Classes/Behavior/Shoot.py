@@ -1,7 +1,7 @@
 import pygame
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, position, direction, speed, size, bulletImage):
+    def __init__(self, position, direction, speed, size, bulletImage, screen):
         super().__init__()
         self.image = pygame.image.load(bulletImage).convert_alpha()
         self.image = pygame.transform.scale(self.image, size)
@@ -9,10 +9,14 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.center = position
         self.direction = direction
         self.speed = speed
+        self.screen = screen
 
     def update(self, dt):
         self.rect.x += self.direction[0] * self.speed * dt
         self.rect.y += self.direction[1] * self.speed * dt
+
+        if not self.screen.get_rect().colliderect(self.rect):
+            self.kill()
 
 
 class Shoot:
@@ -40,6 +44,7 @@ class Shoot:
                 direction = (1, 0),   # right
                 speed = self.bulletSpeed,
                 size = self.bulletSize,
-                bulletImage = self.bulletImage
+                bulletImage = self.bulletImage,
+                screen = self.screen
             )
             self.bulletsGroup.add(bullet)
