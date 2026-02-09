@@ -13,5 +13,10 @@ class Test(pygame.sprite.Sprite):
 
         self.hp = 100
 
+    def takeDamage(self, num: float):
+        self.hp -= num
+        if self.hp <= 0:
+            self.kill()
+
     def update(self, dt: float):
         self.moveBehavior.update(dt)

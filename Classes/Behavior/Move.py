@@ -4,7 +4,7 @@ class Move:
     def __init__(self, rect):
         super().__init__()
         self.direction = (-1, 0)  # left
-        self.speed = 30
+        self.speed = 20
         self.rect = rect
 
     def update(self, dt: float):

@@ -20,19 +20,18 @@ class Bullet(pygame.sprite.Sprite):
 
 
 class Shoot:
-    def __init__(self, screen):
+    def __init__(self, screen, bulletGroup):
         super().__init__()
         self.dt = 0
         self.fireCoolDown = 1
         self.bulletSpeed = 300
         self.bulletSize = (50, 50)
         self.bulletImage = "Assets/Projectiles/potato.png"
-        self.bulletsGroup = pygame.sprite.Group()
+        self.bulletsGroup = bulletGroup
         self.position = (100,100)
         self.screen = screen
 
     def detectAndShoot(self, dt: float):
-        self.bulletsGroup.update(dt)
         self.bulletsGroup.draw(self.screen)
 
         self.dt += dt

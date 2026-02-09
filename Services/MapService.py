@@ -1,5 +1,6 @@
 import pygame
 from typing import Tuple
+from Utils.Game.Highlight import highlight
 
 RGBA = Tuple[int, int, int, int]
 
@@ -47,21 +48,17 @@ class MapService:
                 
         return self.tilesGroup
 
-    def drawGrid(self):            
+    def update(self):            
         self.tilesGroup.draw(self.screen)
         #glow
         for tile in self.tilesGroup:
             mouse_pos = pygame.mouse.get_pos()
             # hover glow
             if tile.rect.collidepoint(mouse_pos) and self.tileGlow:
-                glow_surface = pygame.Surface(tile.rect.size, pygame.SRCALPHA)
-                glow_surface.fill((255, 255, 255, 60))
-                self.screen.blit(glow_surface, tile.rect.topleft)
+                highlight(tile.rect, self.screen, (255, 255, 255, 60))
 
             if tile.clicked:
-                click_overlay = pygame.Surface(tile.rect.size, pygame.SRCALPHA)
-                click_overlay.fill((0, 255, 0, 80))
-                self.screen.blit(click_overlay, tile.rect.topleft)
+                highlight(tile.rect, self.screen, (0, 255, 0, 80))
 
 
     def destroyGrid(self):

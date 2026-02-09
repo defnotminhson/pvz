@@ -8,12 +8,14 @@ Allies = {
 class AllyService:
     def __init__(self, screen):
         self.allyGroup = pygame.sprite.Group()
+        self.bulletGroup = pygame.sprite.Group()
         self.screen = screen
 
     def spawnAlly(self, name: str, posX: int, posY: int):
         newAlly = Allies[name](
             screen=self.screen,
             position=[posX, posY],
+            bulletGroup=self.bulletGroup,
         )
         self.allyGroup.add(newAlly)
 
@@ -25,6 +27,7 @@ class AllyService:
                 if tile.rect.collidepoint(mouse_pos):
                     self.spawnAlly("Cat", tile.rect.centerx, tile.rect.centery)
     
-    def drawAlly(self, dt: float):
+    def update(self, dt: float):
+        self.bulletGroup.update(dt)
         self.allyGroup.draw(self.screen)
         self.allyGroup.update(dt)
