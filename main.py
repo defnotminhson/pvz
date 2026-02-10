@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, Global
 
 from Services.MapService import MapService
 from Services.UiService import UiService
@@ -8,11 +8,8 @@ from Utils.Core.CollisionHandler import bulletCollision
 
 # pygame setup
 pygame.init()
-screen_width = 1280
-screen_height = 720
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((Global.screenWidth, Global.screenHeight))
 clock = pygame.time.Clock()
-dt = 0
 
 mapService = MapService(screen)
 uiService = UiService(screen)
@@ -25,7 +22,7 @@ mapService.tileSize = (100, 110)
 tiles = mapService.createGrid(9, 5, 4, (0, 200, 0, 0)) 
 
 background = pygame.image.load("Assets/Backgrounds/Frontyard.png").convert()
-background = pygame.transform.scale(background, (screen_width + 500, screen_height))
+background = pygame.transform.scale(background, (Global.screenWidth + 500, Global.screenHeight))
 
 pygame.mouse.set_visible(False)
 while True:
@@ -42,11 +39,11 @@ while True:
     screen.blit(background, (0, 0))
     bulletCollision(allyService.bulletGroup, enemyService.enemyGroup, 10)
 
-    allyService.update(dt)
-    enemyService.update(dt)
+    allyService.update()
+    enemyService.update()
     mapService.update()
     uiService.update()
     
 
     pygame.display.flip()
-    dt = clock.tick(60) / 1000
+    Global.dt = clock.tick(60) / 1000

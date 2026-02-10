@@ -25,6 +25,6 @@ class EnemyService:
                 if tile.rect.collidepoint(mouse_pos):
                     self.spawnEnemy("Test", tile.rect.centerx, tile.rect.centery)
     
-    def update(self, dt: float):
+    def update(self):
         self.enemyGroup.draw(self.screen)
-        self.enemyGroup.update(dt)
+        self.enemyGroup.update()

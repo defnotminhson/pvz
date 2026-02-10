@@ -2,7 +2,7 @@ import pygame
 from Classes.Menu.Pointer import Pointer
     
 class UiService:
-    def __init__(self,screen):
+    def __init__(self, screen):
         self.crosshair = Pointer("Assets/Pointers/Pointer.png")
         self.screen = screen
         self.uiGroup = pygame.sprite.Group()

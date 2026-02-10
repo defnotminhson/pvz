@@ -1,4 +1,4 @@
-import pygame
+import pygame, Global
 
 class AnimationTrack: 
     def __init__(self, sprite: pygame.sprite.Sprite):
@@ -7,16 +7,15 @@ class AnimationTrack:
         self.frameCount = 0
         self.sprite = sprite
 
-    def loadAnimation(self, folder, frameCount):
+    def loadAnimation(self, folder: str, frameCount: int):
         self.frames = []
         self.frameCount = frameCount
-        for i in range(0,frameCount):
+        for i in range(0,frameCount - 1):
             self.frames.append(pygame.image.load(f"{folder}/frame{frameCount:04d}"))
         return self.frames
     
 class Animator:
-    def __init__(self, dt: float, fps: int):
-        self.dt = dt
+    def __init__(self, fps: int):
         self.fps = fps
 
     def playAnimation(self, animationTrack: AnimationTrack):

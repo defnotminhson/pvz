@@ -1,4 +1,4 @@
-import pygame
+import pygame, Global
 from Classes.Allies.Cat import Cat
 from Classes.Allies.PeaShooter import PeaShooter
 
@@ -30,7 +30,7 @@ class AllyService:
                     self.spawnAlly("PeaShooter", tile.rect.centerx, tile.rect.centery)
                     tile.Taken = True
     
-    def update(self, dt: float):
-        self.bulletGroup.update(dt)
+    def update(self):
+        self.bulletGroup.update()
         self.allyGroup.draw(self.screen)
-        self.allyGroup.update(dt)
+        self.allyGroup.update()

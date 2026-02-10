@@ -1,0 +1,5 @@
+import pygame
+
+screenWidth = 1280
+screenHeight = 720
+dt = 0

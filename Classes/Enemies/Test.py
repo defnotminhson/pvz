@@ -1,4 +1,4 @@
-import pygame
+import pygame, Global
 from Classes.Behavior.Move import Move
 
 class Test(pygame.sprite.Sprite):
@@ -19,5 +19,5 @@ class Test(pygame.sprite.Sprite):
         if self.hp <= 0:
             self.kill()
 
-    def update(self, dt: float):
-        self.moveBehavior.update(dt)
+    def update(self):
+        self.moveBehavior.update(Global.dt)

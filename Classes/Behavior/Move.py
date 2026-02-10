@@ -1,4 +1,4 @@
-import pygame
+import pygame, Global
 
 class Move:
     def __init__(self, rect):
@@ -8,6 +8,6 @@ class Move:
         self.pos = pygame.Vector2(rect.topleft)
         self.rect = rect
 
-    def update(self, dt: float):
-        self.pos += self.direction * self.speed * dt
+    def update(self):
+        self.pos += self.direction * self.speed * Global.dt
         self.rect.topleft = self.pos
