@@ -1,8 +1,10 @@
 import pygame
 from Classes.Allies.Cat import Cat
+from Classes.Allies.PeaShooter import PeaShooter
 
 Allies = {
     "Cat": Cat,
+    "PeaShooter": PeaShooter,
 }
 
 class AllyService:
@@ -25,7 +27,7 @@ class AllyService:
             
             for tile in tilesGroup:
                 if tile.rect.collidepoint(mouse_pos) and not tile.Taken:
-                    self.spawnAlly("Cat", tile.rect.centerx, tile.rect.centery)
+                    self.spawnAlly("PeaShooter", tile.rect.centerx, tile.rect.centery)
                     tile.Taken = True
     
     def update(self, dt: float):
