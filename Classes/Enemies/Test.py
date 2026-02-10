@@ -20,4 +20,4 @@ class Test(pygame.sprite.Sprite):
             self.kill()
 
     def update(self):
-        self.moveBehavior.update(Global.dt)
+        self.moveBehavior.update()

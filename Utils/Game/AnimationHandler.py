@@ -1,34 +1,40 @@
 import pygame, Global
 
 class AnimationTrack: 
-    def __init__(self, sprite: pygame.sprite.Sprite):
+    def __init__(self, sprite: pygame.sprite.Sprite,  folder: str, frameCount: int, fps: int):
+        self.priority = 1
+        self.playing = False
+        self.Looped = False
+        self.timePassed = 0
+        self.frameDuration = 1 / fps
         self.frames = []
         self.currentFrame = 0
         self.frameCount = 0
         self.sprite = sprite
-
-    def loadAnimation(self, folder: str, frameCount: int):
-        self.frames = []
         self.frameCount = frameCount
-        for i in range(0,frameCount - 1):
-            self.frames.append(pygame.image.load(f"{folder}/frame{frameCount:04d}"))
-        return self.frames
+        for i in range(0,frameCount):
+            self.frames.append(pygame.image.load(f"{folder}/frame{i:04d}.png"))
     
 class Animator:
-    def __init__(self, fps: int):
-        self.fps = fps
+    def __init__(self):
+        self.CurrentAnimation = "nil"
 
     def playAnimation(self, animationTrack: AnimationTrack):
-        sprite = animationTrack.sprite 
+        animationTrack.timePassed += Global.dt
+
+        sprite = animationTrack.sprite
         frames = animationTrack.frames
 
-        currentFrame = animationTrack.currentFrame
-        if currentFrame == self.frameCount:
-            animationTrack.currentFrame = 0
-            currentFrame = 0
+        while animationTrack.timePassed >= animationTrack.frameDuration:
+            animationTrack.timePassed -= animationTrack.frameDuration
+        
+            animationTrack.currentFrame = (animationTrack.currentFrame + 1) % len(animationTrack.frames) # loops animation back
+            sprite.image = frames[animationTrack.currentFrame]
 
-        sprite.image = frames[currentFrame]
-        animationTrack.currentFrame += 1
+
+        
+
+
         
         
 

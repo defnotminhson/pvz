@@ -1,4 +1,4 @@
-import pygame
+import pygame, Global
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, position, direction: pygame.Vector2, speed, size, bulletImage, screen):
@@ -12,8 +12,8 @@ class Bullet(pygame.sprite.Sprite):
         self.speed = speed
         self.screen = screen
 
-    def update(self, dt):
-        self.pos += self.direction * self.speed * dt
+    def update(self):
+        self.pos += self.direction * self.speed * Global.dt
         self.rect.topleft = self.pos
 
         if not self.screen.get_rect().colliderect(self.rect):
@@ -32,10 +32,10 @@ class Shoot:
         self.position = (100,100)
         self.screen = screen
 
-    def detectAndShoot(self, dt: float):
+    def detectAndShoot(self):
         self.bulletsGroup.draw(self.screen)
 
-        self.dt += dt
+        self.dt += Global.dt
         if self.dt >= self.fireCoolDown:
             self.dt = 0
             
