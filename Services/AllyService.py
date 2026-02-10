@@ -24,8 +24,9 @@ class AllyService:
             mouse_pos = event.pos
             
             for tile in tilesGroup:
-                if tile.rect.collidepoint(mouse_pos):
+                if tile.rect.collidepoint(mouse_pos) and not tile.Taken:
                     self.spawnAlly("Cat", tile.rect.centerx, tile.rect.centery)
+                    tile.Taken = True
     
     def update(self, dt: float):
         self.bulletGroup.update(dt)

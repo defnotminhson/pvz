@@ -12,6 +12,7 @@ class Tile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [posX, posY]
         self.clicked = False
+        self.Taken = False
 
 class MapService:
     def __init__(self, screen):
