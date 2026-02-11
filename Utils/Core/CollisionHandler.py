@@ -8,3 +8,10 @@ def bulletCollision(bulletGr, enemyGr, damage):
     for _, enemies in hits.items():
         for enemy in enemies:
             enemy.takeDamage(damage)
+            break
+
+def enemyCollision(allyGr, enemyGr):
+    hits = pygame.sprite.groupcollide(allyGr, enemyGr, False, False, collided=hitbox_collision)
+    for ally, enemies in hits.items():
+        for enemy in enemies:
+            enemy.attackBehavior.target = ally

@@ -49,6 +49,10 @@ class Animator:
         frames = animationTrack.frames
 
         while animationTrack.timePassed >= animationTrack.frameDuration:
+            if animationTrack.timePassed >= animationTrack.frameDuration * animationTrack.frameCount and not animationTrack.Looped:
+                animationTrack.timePassed = 0
+                self.CurrentAnimations.pop(highest, None)
+                break
             animationTrack.timePassed -= animationTrack.frameDuration
         
             animationTrack.currentFrame += 1

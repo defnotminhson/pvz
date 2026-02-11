@@ -1,5 +1,5 @@
 import pygame, Global
-from Classes.Behavior.Move import Move
+from Classes.Behavior.Move import MoveBehavior
 from Classes.EntityBase import BaseEntity
 
 class Test(BaseEntity):
@@ -9,7 +9,7 @@ class Test(BaseEntity):
         self.image = pygame.transform.scale(self.image, (100, 110))
 
         self.screen = screen
-        self.moveBehavior = Move(self)
+        self.moveBehavior = MoveBehavior(self)
 
         self.hp = 100
         self.moveBehavior.speed = 10

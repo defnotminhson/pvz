@@ -1,6 +1,6 @@
 import pygame, Global
 
-class Move:
+class MoveBehavior:
     def __init__(self, entity):
         super().__init__()
         self.direction = pygame.Vector2(-1, 0)  # left

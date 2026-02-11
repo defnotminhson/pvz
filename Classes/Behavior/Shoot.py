@@ -17,7 +17,7 @@ class Shoot:
             imageSize: int,
         ):
         super().__init__()
-        self.timePassed = 0
+        self.timePassed = fireCoolDown
         self.fireCoolDown = fireCoolDown
         self.bulletSpeed = bulletSpeed
         self.bulletsGroup = bulletGroup
@@ -32,10 +32,10 @@ class Shoot:
         self.bulletsGroup.draw(self.screen)
 
         self.timePassed += Global.dt
-        if self.timePassed >= self.fireCoolDown:
+        while self.timePassed >= self.fireCoolDown:
             self.animator.playAnimation(self.shootAnim)
 
-            self.timePassed = 0
+            self.timePassed -= self.fireCoolDown
             
             bullet = Bullet(
                 position = self.position,

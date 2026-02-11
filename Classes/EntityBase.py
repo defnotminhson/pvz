@@ -33,7 +33,7 @@ class BaseEntity(pygame.sprite.Sprite):
         self.rect.center = self.position
         self.hitbox.center = self.position
 
-    def take_damage(self, amount):
+    def takeDamage(self, amount):
         self.hp -= amount
         if self.hp <= 0:
             self.die()

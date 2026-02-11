@@ -6,7 +6,7 @@ from Utils.Game.AnimationHandler import AnimationTrack
 class PeaShooter(BaseEntity):
     def __init__(self, screen, position: pygame.Vector2, bulletGroup):
         super().__init__(position=position, hitboxSize=pygame.Vector2(100, 100), imageSize=pygame.Vector2(150, 160))
-        self.hp = 100
+        self.hp = 30
 
         self.IdleAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Idle", self.imageSize, 5, Global.animationFPS, True, 1)
         self.ShootAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Shoot", self.imageSize, 6, Global.animationFPS, False, 2)

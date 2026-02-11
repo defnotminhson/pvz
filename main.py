@@ -4,7 +4,7 @@ from Services.MapService import MapService
 from Services.UiService import UiService
 from Services.AllyService import AllyService
 from Services.EnemyService import EnemyService
-from Utils.Core.CollisionHandler import bulletCollision
+from Utils.Core.CollisionHandler import bulletCollision, enemyCollision
 
 # pygame setup
 pygame.init()
@@ -38,6 +38,7 @@ while True:
     screen.fill("white")
     screen.blit(background, (0, 0))
     bulletCollision(allyService.bulletGroup, enemyService.enemyGroup, 10)
+    enemyCollision(allyService.allyGroup, enemyService.enemyGroup)
 
     allyService.update()
     enemyService.update()
