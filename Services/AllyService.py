@@ -16,7 +16,7 @@ class AllyService:
     def spawnAlly(self, name: str, posX: int, posY: int):
         newAlly = Allies[name](
             screen=self.screen,
-            position=[posX, posY],
+            position=pygame.Vector2(posX, posY),
             bulletGroup=self.bulletGroup,
         )
         self.allyGroup.add(newAlly)

@@ -1,10 +1,11 @@
 import pygame, Global
 
 class AnimationTrack: 
-    def __init__(self, sprite: pygame.sprite.Sprite,  folder: str, frameCount: int, fps: int, looped: bool, priority: int):
+    def __init__(self, sprite: pygame.sprite.Sprite,  folder: str, size: pygame.Vector2, frameCount: int, fps: int, looped: bool, priority: int):
         self.priority = priority
         self.playing = False
         self.Looped = looped
+        self.size = size
         self.timePassed = 0
         self.frameDuration = 1 / fps
         self.frames = []
@@ -13,7 +14,7 @@ class AnimationTrack:
         self.sprite = sprite
         self.frameCount = frameCount
         for i in range(0,frameCount):
-            self.frames.append(pygame.image.load(f"{folder}/frame{i:04d}.png"))
+            self.frames.append(pygame.transform.scale(pygame.image.load(f"{folder}/frame{i:04d}.png"), self.size))
     
 class Animator:
     def __init__(self):
