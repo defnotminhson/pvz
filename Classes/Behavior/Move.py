@@ -1,13 +1,13 @@
 import pygame, Global
 
 class Move:
-    def __init__(self, rect):
+    def __init__(self, entity):
         super().__init__()
         self.direction = pygame.Vector2(-1, 0)  # left
         self.speed = 100
-        self.pos = pygame.Vector2(rect.topleft)
-        self.rect = rect
+        self.entity = entity
+        self.moving = True
 
     def update(self):
-        self.pos += self.direction * self.speed * Global.dt
-        self.rect.topleft = self.pos
+        if self.moving:
+            self.entity.position += self.direction * self.speed * Global.dt

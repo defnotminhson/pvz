@@ -34,3 +34,6 @@ class AllyService:
         self.bulletGroup.update()
         self.allyGroup.draw(self.screen)
         self.allyGroup.update()
+
+        # for sprite in self.allyGroup:
+        #     pygame.draw.rect(self.screen, (255, 0, 0), sprite.hitbox, 2)

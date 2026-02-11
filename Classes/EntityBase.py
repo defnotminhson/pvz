@@ -2,14 +2,17 @@ import pygame
 from Utils.Game.AnimationHandler import Animator
 
 class BaseEntity(pygame.sprite.Sprite):
-    def __init__(self, position: pygame.Vector2, size: pygame.Vector2):
+    def __init__(self, position: pygame.Vector2, hitboxSize: pygame.Vector2, imageSize: pygame.Vector2):
         super().__init__()
 
-        self.size = size
-        self.position = pygame.Vector2(position)
+        self.hitboxSize = hitboxSize
+        self.imageSize = imageSize
+        self.position = position
 
-        # Default blank surfac
-        self.image = pygame.Surface(size, pygame.SRCALPHA)
+        self.hitbox = pygame.Rect(0, 0, hitboxSize.x, hitboxSize.y)
+        self.hitbox.center = self.position
+        # Default blank surface
+        self.image = pygame.Surface(imageSize, pygame.SRCALPHA)
         self.rect = self.image.get_rect(center=self.position)
 
         # Core systems
@@ -24,6 +27,11 @@ class BaseEntity(pygame.sprite.Sprite):
             return
 
         self.Animator.update()
+        self._update_rect()
+
+    def _update_rect(self):
+        self.rect.center = self.position
+        self.hitbox.center = self.position
 
     def take_damage(self, amount):
         self.hp -= amount

@@ -1,17 +1,17 @@
 import pygame, Global
 from Classes.Behavior.Shoot import Shoot
 from Classes.EntityBase import BaseEntity
-from Utils.Game.AnimationHandler import AnimationTrack, Animator
+from Utils.Game.AnimationHandler import AnimationTrack
 
 class PeaShooter(BaseEntity):
     def __init__(self, screen, position: pygame.Vector2, bulletGroup):
-        super().__init__(position, pygame.Vector2(150, 160))
+        super().__init__(position=position, hitboxSize=pygame.Vector2(100, 100), imageSize=pygame.Vector2(150, 160))
         self.hp = 100
 
-        self.IdleAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Idle", self.size, 5, Global.animationFPS, True, 1)
-        self.ShootAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Shoot", self.size, 6, Global.animationFPS, False, 2)
+        self.IdleAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Idle", self.imageSize, 5, Global.animationFPS, True, 1)
+        self.ShootAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Shoot", self.imageSize, 6, Global.animationFPS, False, 2)
         self.Animator.playAnimation(self.IdleAnim)
-        
+
         self.screen = screen
         self.bulletGroup = bulletGroup
 
@@ -22,11 +22,11 @@ class PeaShooter(BaseEntity):
             shootAnim=self.ShootAnim,
             fireCoolDown=2,
             bulletGroup=self.bulletGroup, 
-            bulletImage="Assets/Projectiles/Bullet/frame0000.png",
-            bulletSize=pygame.Vector2(80,70),
             bulletSpeed=200,
+            hitboxSize=pygame.Vector2(50,50),
+            imageSize=pygame.Vector2(80,70),
             )
         
     def update(self):
         self.shootBehavior.detectAndShoot()
-        self.Animator.update()
+        super().update()

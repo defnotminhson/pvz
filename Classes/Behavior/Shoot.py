@@ -12,21 +12,21 @@ class Shoot:
             shootAnim: AnimationTrack, 
             fireCoolDown: float,
             bulletGroup: pygame.sprite.Group, 
-            bulletImage: str, 
-            bulletSize: pygame.Vector2, 
-            bulletSpeed: int
+            bulletSpeed: int,
+            hitboxSize: int,
+            imageSize: int,
         ):
         super().__init__()
         self.timePassed = 0
         self.fireCoolDown = fireCoolDown
         self.bulletSpeed = bulletSpeed
-        self.bulletSize = bulletSize
-        self.bulletImage = bulletImage
         self.bulletsGroup = bulletGroup
         self.position = position
         self.screen = screen
         self.animator = animator
         self.shootAnim = shootAnim
+        self.imageSize = imageSize
+        self.hitboxSize = hitboxSize
 
     def detectAndShoot(self):
         self.bulletsGroup.draw(self.screen)
@@ -41,8 +41,8 @@ class Shoot:
                 position = self.position,
                 direction = pygame.Vector2(1, 0),   # right
                 speed = self.bulletSpeed,
-                size = self.bulletSize,
-                bulletImage = self.bulletImage,
+                hitboxSize = self.hitboxSize,
+                imageSize = self.imageSize,
                 screen = self.screen
             )
             self.bulletsGroup.add(bullet)
