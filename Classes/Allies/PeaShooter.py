@@ -7,9 +7,10 @@ class PeaShooter(pygame.sprite.Sprite):
         super().__init__()
         # self.image = pygame.image.load("Assets/Allies/owo.png").convert_alpha()
         # self.image = pygame.transform.scale(self.image, (120, 130))
-        self.IdleAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Idle", 5, Global.animationFPS)
-        self.ShootAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Shoot", 7, Global.animationFPS)
+        self.IdleAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Idle", 5, Global.animationFPS, True, 1)
+        self.ShootAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Shoot", 7, Global.animationFPS, False, 2)
         self.Animator = Animator()
+        self.Animator.playAnimation(self.IdleAnim)
 
         self.image = pygame.image.load("Assets/Allies/PeaShooter/Idle/frame0000.png").convert_alpha()
         self.rect = self.image.get_rect()
@@ -17,7 +18,7 @@ class PeaShooter(pygame.sprite.Sprite):
         self.screen = screen
         self.bulletGroup = bulletGroup
 
-        self.shootBehavior = Shoot(self.screen, self.bulletGroup)
+        self.shootBehavior = Shoot(self.screen, self.bulletGroup, self.Animator, self.ShootAnim)
         self.shootBehavior.position = position
 
         self.hp = 100
@@ -25,3 +26,4 @@ class PeaShooter(pygame.sprite.Sprite):
         
     def update(self):
         self.shootBehavior.detectAndShoot()
+        self.Animator.update()

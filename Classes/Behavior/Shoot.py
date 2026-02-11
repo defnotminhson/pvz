@@ -1,4 +1,5 @@
 import pygame, Global
+from Utils.Game.AnimationHandler import AnimationTrack, Animator
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, position, direction: pygame.Vector2, speed, size, bulletImage, screen):
@@ -21,9 +22,9 @@ class Bullet(pygame.sprite.Sprite):
 
 
 class Shoot:
-    def __init__(self, screen, bulletGroup):
+    def __init__(self, screen, bulletGroup, animator: Animator, shootAnim: AnimationTrack):
         super().__init__()
-        self.dt = 0
+        self.timePassed = 0
         self.fireCoolDown = 1
         self.bulletSpeed = 1000
         self.bulletSize = (50, 50)
@@ -31,13 +32,17 @@ class Shoot:
         self.bulletsGroup = bulletGroup
         self.position = (100,100)
         self.screen = screen
+        self.animator = animator
+        self.shootAnim = shootAnim
 
     def detectAndShoot(self):
         self.bulletsGroup.draw(self.screen)
 
-        self.dt += Global.dt
-        if self.dt >= self.fireCoolDown:
-            self.dt = 0
+        self.timePassed += Global.dt
+        if self.timePassed >= self.fireCoolDown:
+            self.animator.playAnimation(self.shootAnim)
+
+            self.timePassed = 0
             
             bullet = Bullet(
                 position = self.position,
