@@ -24,10 +24,6 @@ class BaseEntity(pygame.sprite.Sprite):
             return
 
         self.Animator.update()
-        self._update_rect()
-
-    def _update_rect(self):
-        self.rect.center = self.position
 
     def take_damage(self, amount):
         self.hp -= amount

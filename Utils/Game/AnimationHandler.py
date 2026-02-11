@@ -13,8 +13,22 @@ class AnimationTrack:
         self.frameCount = 0
         self.sprite = sprite
         self.frameCount = frameCount
-        for i in range(0,frameCount):
-            self.frames.append(pygame.transform.scale(pygame.image.load(f"{folder}/frame{i:04d}.png"), self.size))
+
+        cache_key = (folder, tuple(size), frameCount)
+
+        if cache_key not in Global.animationCache:
+            frames = []
+            for i in range(frameCount):
+                img = pygame.image.load(f"{folder}/frame{i:04d}.png").convert_alpha()
+                img = pygame.transform.scale(img, size)
+                frames.append(img)
+
+            Global.animationCache[cache_key] = frames
+
+        self.frames = Global.animationCache[cache_key]
+
+        # for i in range(0,frameCount):
+        #     self.frames.append(pygame.transform.scale(pygame.image.load(f"{folder}/frame{i:04d}.png"), self.size))
     
 class Animator:
     def __init__(self):
@@ -27,27 +41,27 @@ class Animator:
         if self.CurrentAnimations == {}:
             return
         
-        for i in sorted(self.CurrentAnimations): # going from the lowest to make the higher priority animation overwrites
-            animationTrack : AnimationTrack = self.CurrentAnimations[i]
-            animationTrack.timePassed += Global.dt
+        highest = max(self.CurrentAnimations)
+        animationTrack : AnimationTrack = self.CurrentAnimations[highest]
+        animationTrack.timePassed += Global.dt
 
-            sprite = animationTrack.sprite
-            frames = animationTrack.frames
+        sprite = animationTrack.sprite
+        frames = animationTrack.frames
 
-            while animationTrack.timePassed >= animationTrack.frameDuration:
-                animationTrack.timePassed -= animationTrack.frameDuration
-            
-                animationTrack.currentFrame += 1
-                if animationTrack.currentFrame >= animationTrack.frameCount:
-                    if animationTrack.Looped:
-                        animationTrack.currentFrame = 0
-                    else:
-                        animationTrack.currentFrame = 0
-                        self.CurrentAnimations.pop(i, None)
-                        break
-                #print(animationTrack.currentFrame)
-                if i == max(self.CurrentAnimations):
-                    sprite.image = frames[animationTrack.currentFrame]
+        while animationTrack.timePassed >= animationTrack.frameDuration:
+            animationTrack.timePassed -= animationTrack.frameDuration
+        
+            animationTrack.currentFrame += 1
+            if animationTrack.currentFrame >= animationTrack.frameCount:
+                if animationTrack.Looped:
+                    animationTrack.currentFrame = 0
+                else:
+                    animationTrack.currentFrame = 0
+                    self.CurrentAnimations.pop(highest, None)
+                    break
+
+            sprite.image = frames[animationTrack.currentFrame]
+        
 
 
         
