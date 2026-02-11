@@ -17,7 +17,7 @@ class PeaShooter(BaseEntity):
 
         self.shootBehavior = Shoot(
             screen=self.screen, 
-            position=position + pygame.Vector2(20,-30),
+            position=self.position + pygame.Vector2(20,-30),
             animator=self.Animator, 
             shootAnim=self.ShootAnim,
             fireCoolDown=2,
