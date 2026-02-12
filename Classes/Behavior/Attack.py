@@ -9,6 +9,7 @@ class AttackBehavior:
             attackAnim: AnimationTrack,
             damage: int,
             entity,
+            attackSound: str,
         ):
         self.timePassed = attackCoolDown
         self.attackCoolDown = attackCoolDown
@@ -18,6 +19,7 @@ class AttackBehavior:
         self.attackAnim = attackAnim
         self.damage = damage
         self.entity = entity
+        self.attackSound = attackSound
     
     def update(self):
         if self.target != "nil":
@@ -27,6 +29,7 @@ class AttackBehavior:
             if self.timePassed >= self.attackCoolDown:
                 self.animator.playAnimation(self.attackAnim)
                 self.timePassed = 0
+                Global.soundHandler.play(self.attackSound)
 
                 self.target.takeDamage(self.damage)
                 if self.target.hp <= 0:

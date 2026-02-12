@@ -17,6 +17,7 @@ class Shoot:
             imageSize: int,
             damage: int,
             lane: int,
+            shootSound: str,
         ):
         super().__init__()
         self.timePassed = 0
@@ -31,6 +32,7 @@ class Shoot:
         self.hitboxSize = hitboxSize
         self.damage = damage
         self.lane = lane
+        self.shootSound = shootSound
 
     def detectAndShoot(self):
         self.bulletsGroup.draw(self.screen)
@@ -42,6 +44,7 @@ class Shoot:
             if len(Global.enemyService.lanes[self.lane]) == 0:
                 break
             self.animator.playAnimation(self.shootAnim)
+            Global.soundHandler.play(self.shootSound)
             
             bullet = Bullet(
                 position=self.position,

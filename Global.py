@@ -12,3 +12,9 @@ mapService : MapService = None
 uiService : UiService = None
 allyService : AllyService = None
 enemyService : EnemyService = None
+
+from Utils.Game.SoundHandler import SoundHandler
+soundHandler = SoundHandler()
+soundHandler.loadFolder("Assets/Sounds")
+
+soundHandler.playMusic("Assets/Sounds/Music/Celebrawl.mp3")

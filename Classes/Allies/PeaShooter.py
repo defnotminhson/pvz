@@ -27,7 +27,8 @@ class PeaShooter(BaseEntity):
             hitboxSize=pygame.Vector2(50,50),
             imageSize=pygame.Vector2(80,70),
             damage=self.damage,
-            lane=self.lane
+            lane=self.lane,
+            shootSound="Effect/gunshot1",
             )
         
     def update(self):

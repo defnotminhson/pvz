@@ -20,6 +20,7 @@ class Police(BaseEntity):
             attackAnim=self.AttackAnim,
             damage=10,
             entity=self,
+            attackSound="Effect/punch",
             )
 
     def takeDamage(self, num: float):
