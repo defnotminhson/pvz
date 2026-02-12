@@ -13,11 +13,12 @@ class AllyService:
         self.bulletGroup = pygame.sprite.Group()
         self.screen = screen
 
-    def spawnAlly(self, name: str, pos: pygame.Vector2):
+    def spawnAlly(self, name: str, pos: pygame.Vector2, lane):
         newAlly = Allies[name](
             screen=self.screen,
             position=pos,
             bulletGroup=self.bulletGroup,
+            lane=lane
         )
         self.allyGroup.add(newAlly)
         return newAlly
@@ -28,7 +29,7 @@ class AllyService:
             
             for tile in tilesGroup:
                 if tile.rect.collidepoint(mouse_pos) and tile.allyPlanted == "nil":
-                    tile.allyPlanted = self.spawnAlly("PeaShooter", tile.rect.center)
+                    tile.allyPlanted = self.spawnAlly("PeaShooter", tile.rect.center, tile.lane)
                     tile.Taken = True
     
     def update(self):

@@ -15,6 +15,8 @@ class Shoot:
             bulletSpeed: int,
             hitboxSize: int,
             imageSize: int,
+            damage: int,
+            lane: int,
         ):
         super().__init__()
         self.timePassed = fireCoolDown
@@ -27,22 +29,27 @@ class Shoot:
         self.shootAnim = shootAnim
         self.imageSize = imageSize
         self.hitboxSize = hitboxSize
+        self.damage = damage
+        self.lane = lane
 
     def detectAndShoot(self):
         self.bulletsGroup.draw(self.screen)
 
         self.timePassed += Global.dt
         while self.timePassed >= self.fireCoolDown:
-            self.animator.playAnimation(self.shootAnim)
-
             self.timePassed -= self.fireCoolDown
             
+            if len(Global.enemyService.lanes[self.lane]) == 0:
+                break
+            self.animator.playAnimation(self.shootAnim)
+            
             bullet = Bullet(
-                position = self.position,
-                direction = pygame.Vector2(1, 0),   # right
-                speed = self.bulletSpeed,
-                hitboxSize = self.hitboxSize,
-                imageSize = self.imageSize,
-                screen = self.screen
+                position=self.position,
+                direction=pygame.Vector2(1, 0),   # right
+                speed=self.bulletSpeed,
+                hitboxSize=self.hitboxSize,
+                imageSize=self.imageSize,
+                screen=self.screen,
+                damage=self.damage,
             )
             self.bulletsGroup.add(bullet)

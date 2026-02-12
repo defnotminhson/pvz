@@ -11,15 +11,15 @@ pygame.init()
 screen = pygame.display.set_mode((Global.screenWidth, Global.screenHeight))
 clock = pygame.time.Clock()
 
-mapService = MapService(screen)
-uiService = UiService(screen)
-allyService = AllyService(screen)
-enemyService = EnemyService(screen)
+Global.mapService = MapService(screen)
+Global.uiService = UiService(screen)
+Global.allyService = AllyService(screen)
+Global.enemyService = EnemyService(screen)
 
-mapService.mapPos = (325, 100)
-mapService.tileSize = (100, 110)
+Global.mapService.mapPos = (325, 100)
+Global.mapService.tileSize = (100, 110)
 
-tiles = mapService.createGrid(9, 5, 4, (0, 200, 0, 0)) 
+tiles = Global.mapService.createGrid(9, 5, 4, (0, 200, 0, 0)) 
 
 background = pygame.image.load("Assets/Backgrounds/Frontyard.png").convert()
 background = pygame.transform.scale(background, (Global.screenWidth + 500, Global.screenHeight))
@@ -31,19 +31,19 @@ while True:
             pygame.quit()
             sys.exit()
 
-        mapService.handleClick(event)
-        allyService.handleClick(event, tiles)
-        enemyService.handleClick(event, tiles)
+        Global.mapService.handleClick(event)
+        Global.allyService.handleClick(event, tiles)
+        Global.enemyService.handleClick(event, tiles)
 
     screen.fill("white")
     screen.blit(background, (0, 0))
-    bulletCollision(allyService.bulletGroup, enemyService.enemyGroup, 10)
-    enemyCollision(allyService.allyGroup, enemyService.enemyGroup)
+    bulletCollision(Global.allyService.bulletGroup, Global.enemyService.enemyGroup)
+    enemyCollision(Global.allyService.allyGroup, Global.enemyService.enemyGroup)
 
-    allyService.update()
-    enemyService.update()
-    mapService.update()
-    uiService.update()
+    Global.allyService.update()
+    Global.enemyService.update()
+    Global.mapService.update()
+    Global.uiService.update()
     
 
     pygame.display.flip()

@@ -11,13 +11,22 @@ class EnemyService:
     def __init__(self, screen):
         self.enemyGroup = pygame.sprite.Group()
         self.screen = screen
+        self.lanes = {
+            0: pygame.sprite.Group(),
+            1: pygame.sprite.Group(),
+            2: pygame.sprite.Group(),
+            3: pygame.sprite.Group(),
+            4: pygame.sprite.Group()
+        }
 
-    def spawnEnemy(self, name: str, pos: pygame.Vector2):
+    def spawnEnemy(self, name: str, pos: pygame.Vector2, lane: int):
         newEnemy = Enemies[name](
             screen=self.screen,
             position=pos,
+            lane=lane,
         )
         self.enemyGroup.add(newEnemy)
+        self.lanes[lane].add(newEnemy)
 
     def handleClick(self, event, tilesGroup):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
@@ -25,7 +34,7 @@ class EnemyService:
             
             for tile in tilesGroup:
                 if tile.rect.collidepoint(mouse_pos):
-                    self.spawnEnemy("Police", tile.rect.center)
+                    self.spawnEnemy("Police", tile.rect.center, tile.lane)
     
     def update(self):
         self.enemyGroup.draw(self.screen)

@@ -13,6 +13,7 @@ class Tile(pygame.sprite.Sprite):
         self.rect.topleft = [posX, posY]
         self.clicked = False
         self.allyPlanted = "nil"
+        self.lane = 0
 
 class MapService:
     def __init__(self, screen):
@@ -46,6 +47,7 @@ class MapService:
                 
                 tile = Tile(tileSizeX, tileSizeY, tile_x, tile_y, color)
                 self.tilesGroup.add(tile)
+                tile.lane = row
                 
         return self.tilesGroup
 

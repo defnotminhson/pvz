@@ -2,7 +2,7 @@ import pygame, Global
 from Utils.Game.AnimationHandler import AnimationTrack, Animator
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, position, direction: pygame.Vector2, speed, hitboxSize, imageSize, screen):
+    def __init__(self, position, direction: pygame.Vector2, speed, hitboxSize, imageSize, screen, damage):
         super().__init__()
         self.position = position.copy()
         self.IdleAnim = AnimationTrack(self, "Assets/Projectiles/Bullet", imageSize, 2, Global.animationFPS, True, 2)
@@ -19,6 +19,7 @@ class Bullet(pygame.sprite.Sprite):
         self.direction = direction
         self.speed = speed
         self.screen = screen
+        self.damage = damage
 
     def update(self):
         self.position += self.direction * self.speed * Global.dt
