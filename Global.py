@@ -17,4 +17,4 @@ from Utils.Game.SoundHandler import SoundHandler
 soundHandler = SoundHandler()
 soundHandler.loadFolder("Assets/Sounds")
 
-soundHandler.playMusic("Assets/Sounds/Music/Celebrawl.mp3")
+soundHandler.playMusic("Assets/Sounds/Music/Cerebrawl.mp3")
