@@ -21,8 +21,8 @@ Global.mapService.tileSize = (100, 110)
 
 tiles = Global.mapService.createGrid(9, 5, 4, (0, 200, 0, 0)) 
 
-background = pygame.image.load("Assets/Backgrounds/Frontyard.png").convert()
-background = pygame.transform.scale(background, (Global.screenWidth + 500, Global.screenHeight))
+background = pygame.image.load("Assets/Backgrounds/frontyard3.webp").convert()
+background = pygame.transform.scale(background, (Global.screenWidth + 500, Global.screenHeight+150))
 
 pygame.mouse.set_visible(False)
 while True:
@@ -36,7 +36,7 @@ while True:
         Global.enemyService.handleClick(event, tiles)
 
     screen.fill("white")
-    screen.blit(background, (0, 0))
+    screen.blit(background, (0, -100))
     bulletCollision(Global.allyService.bulletGroup, Global.enemyService.enemyGroup)
     enemyCollision(Global.allyService.allyGroup, Global.enemyService.enemyGroup)
 

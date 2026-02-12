@@ -23,7 +23,7 @@ class PeaShooter(BaseEntity):
             shootAnim=self.ShootAnim,
             fireCoolDown=2,
             bulletGroup=self.bulletGroup, 
-            bulletSpeed=200,
+            bulletSpeed=300,
             hitboxSize=pygame.Vector2(50,50),
             imageSize=pygame.Vector2(80,70),
             damage=self.damage,

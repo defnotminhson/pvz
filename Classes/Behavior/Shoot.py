@@ -19,7 +19,7 @@ class Shoot:
             lane: int,
         ):
         super().__init__()
-        self.timePassed = fireCoolDown
+        self.timePassed = 0
         self.fireCoolDown = fireCoolDown
         self.bulletSpeed = bulletSpeed
         self.bulletsGroup = bulletGroup
@@ -38,7 +38,7 @@ class Shoot:
         self.timePassed += Global.dt
         while self.timePassed >= self.fireCoolDown:
             self.timePassed -= self.fireCoolDown
-            
+
             if len(Global.enemyService.lanes[self.lane]) == 0:
                 break
             self.animator.playAnimation(self.shootAnim)
