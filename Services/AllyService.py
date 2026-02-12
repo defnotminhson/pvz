@@ -13,21 +13,22 @@ class AllyService:
         self.bulletGroup = pygame.sprite.Group()
         self.screen = screen
 
-    def spawnAlly(self, name: str, posX: int, posY: int):
+    def spawnAlly(self, name: str, pos: pygame.Vector2):
         newAlly = Allies[name](
             screen=self.screen,
-            position=pygame.Vector2(posX, posY),
+            position=pos,
             bulletGroup=self.bulletGroup,
         )
         self.allyGroup.add(newAlly)
+        return newAlly
 
     def handleClick(self, event, tilesGroup):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = event.pos
             
             for tile in tilesGroup:
-                if tile.rect.collidepoint(mouse_pos) and not tile.Taken:
-                    self.spawnAlly("PeaShooter", tile.rect.centerx, tile.rect.centery)
+                if tile.rect.collidepoint(mouse_pos) and tile.allyPlanted == "nil":
+                    tile.allyPlanted = self.spawnAlly("PeaShooter", tile.rect.center)
                     tile.Taken = True
     
     def update(self):
