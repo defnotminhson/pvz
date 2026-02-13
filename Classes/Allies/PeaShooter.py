@@ -13,6 +13,7 @@ class PeaShooter(BaseEntity):
         self.ShootAnim = AnimationTrack(self, "Assets/Allies/PeaShooter/Shoot", self.imageSize, 6, Global.animationFPS, False, 2)
         self.Animator.playAnimation(self.IdleAnim)
 
+        self.imageOffset = pygame.Vector2(0,-10)
         self.screen = screen
         self.bulletGroup = Global.allyService.bulletGroup
 

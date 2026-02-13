@@ -13,8 +13,9 @@ class BaseEntity(pygame.sprite.Sprite):
         self.hitbox = pygame.Rect(0, 0, hitboxSize.x, hitboxSize.y)
         self.hitbox.center = self.position
         # Default blank surface
+        self.imageOffset = pygame.Vector2(0,0)
         self.image = pygame.Surface(imageSize, pygame.SRCALPHA)
-        self.rect = self.image.get_rect(center=self.position)
+        self.rect = self.image.get_rect(center = self.position + self.imageOffset)
 
         # Core systems
         self.Animator = Animator()
@@ -32,7 +33,7 @@ class BaseEntity(pygame.sprite.Sprite):
         self._update_rect()
 
     def _update_rect(self):
-        self.rect.center = self.position
+        self.rect.center = self.position + self.imageOffset
         self.hitbox.center = self.position
 
     def takeDamage(self, amount):
