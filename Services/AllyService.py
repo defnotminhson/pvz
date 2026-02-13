@@ -3,7 +3,7 @@ from Utils.Core.Loader import loadModule
 
 class AllyService:
     def __init__(self, screen):
-        self.allyGroup = pygame.sprite.Group()
+        self.allyGroup = pygame.sprite.LayeredUpdates()
         self.bulletGroup = pygame.sprite.Group()
         self.screen = screen
 
@@ -13,7 +13,7 @@ class AllyService:
             position=pos,
             lane=lane
         )
-        self.allyGroup.add(newAlly)
+        self.allyGroup.add(newAlly, layer=newAlly.lane)
         return newAlly
 
     def handleClick(self, event, tilesGroup):

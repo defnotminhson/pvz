@@ -24,7 +24,7 @@ class MapService:
         self.tileGlow = True
         self.lanes = {}
         for i in range(0,10):
-            self.lanes[i] = pygame.sprite.Group()
+            self.lanes[i] = pygame.sprite.LayeredUpdates()
 
     def handleClick(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:

@@ -9,7 +9,7 @@ Enemies = {
 
 class EnemyService:
     def __init__(self, screen):
-        self.enemyGroup = pygame.sprite.Group()
+        self.enemyGroup = pygame.sprite.LayeredUpdates()
         self.screen = screen
 
     def spawnEnemy(self, name: str, pos: pygame.Vector2, lane: int):
@@ -18,8 +18,8 @@ class EnemyService:
             position=pos,
             lane=lane,
         )
-        self.enemyGroup.add(newEnemy)
-        Global.mapService.lanes[lane].add(newEnemy)
+        self.enemyGroup.add(newEnemy, layer=newEnemy.lane)
+        Global.mapService.lanes[lane].add(newEnemy, layer=newEnemy.lane)
 
     def handleClick(self, event, tilesGroup):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
