@@ -58,7 +58,7 @@ class MapService:
             mouse_pos = pygame.mouse.get_pos()
             # hover glow
             if tile.rect.collidepoint(mouse_pos) and self.tileGlow:
-                highlight(tile.rect, self.screen, (255, 255, 255, 60))
+                highlight(tile.rect, self.screen, (150, 150, 150, 60))
 
             if tile.clicked:
                 highlight(tile.rect, self.screen, (0, 255, 0, 80))

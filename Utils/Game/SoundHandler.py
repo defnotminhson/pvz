@@ -6,8 +6,8 @@ class SoundHandler:
         pygame.mixer.init()
 
         self.sounds = {}
-        self.musicVolume = 0.5
-        self.sfxVolume = 0.7
+        self.musicVolume = 0.4
+        self.sfxVolume = 0.1
 
     def loadFolder(self, rootFolder: str):
         """
