@@ -16,7 +16,12 @@ class EnemyService:
             1: pygame.sprite.Group(),
             2: pygame.sprite.Group(),
             3: pygame.sprite.Group(),
-            4: pygame.sprite.Group()
+            4: pygame.sprite.Group(),
+            5: pygame.sprite.Group(),
+            6: pygame.sprite.Group(),
+            7: pygame.sprite.Group(),
+            8: pygame.sprite.Group(),
+            9: pygame.sprite.Group(),
         }
 
     def spawnEnemy(self, name: str, pos: pygame.Vector2, lane: int):

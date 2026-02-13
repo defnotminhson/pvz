@@ -1,3 +1,6 @@
+import ctypes
+ctypes.windll.user32.SetProcessDPIAware()
+
 import pygame, sys, Global
 
 from Services.MapService import MapService
@@ -16,10 +19,9 @@ Global.uiService = UiService(screen)
 Global.allyService = AllyService(screen)
 Global.enemyService = EnemyService(screen)
 
-Global.mapService.mapPos = (325, 120)
-Global.mapService.tileSize = (100, 110)
-
-tiles = Global.mapService.createGrid(9, 5, 4, (0, 200, 0, 0)) 
+Global.mapService.mapPos = (440, 220)
+Global.mapService.tileSize = (80, 75)
+tiles = Global.mapService.createGrid(15, 10, 4, (0, 200, 0, 0))
 
 background = pygame.image.load("Assets/Backgrounds/frontyard3.png").convert()
 background = pygame.transform.scale(background, (Global.screenWidth + 500, Global.screenHeight + 150))

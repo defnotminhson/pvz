@@ -1,5 +1,5 @@
-screenWidth = 1280
-screenHeight = 720
+screenWidth = 1920 #1280 #1920
+screenHeight = 1080 #720#1080
 dt = 0
 animationFPS = 12
 animationCache = {}
