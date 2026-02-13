@@ -1,11 +1,5 @@
 import pygame, Global
-from Classes.Allies.Cat import Cat
-from Classes.Allies.PeaShooter import PeaShooter
-
-Allies = {
-    "Cat": Cat,
-    "PeaShooter": PeaShooter,
-}
+from Utils.Core.Loader import loadModule
 
 class AllyService:
     def __init__(self, screen):
@@ -14,10 +8,9 @@ class AllyService:
         self.screen = screen
 
     def spawnAlly(self, name: str, pos: pygame.Vector2, lane):
-        newAlly = Allies[name](
+        newAlly = loadModule(f"Classes/Allies/{name}.py")(
             screen=self.screen,
             position=pos,
-            bulletGroup=self.bulletGroup,
             lane=lane
         )
         self.allyGroup.add(newAlly)

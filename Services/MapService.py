@@ -22,6 +22,9 @@ class MapService:
         self.screen = screen
         self.tilesGroup = pygame.sprite.Group()
         self.tileGlow = True
+        self.lanes = {}
+        for i in range(0,10):
+            self.lanes[i] = pygame.sprite.Group()
 
     def handleClick(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:

@@ -41,7 +41,7 @@ class Shoot:
         while self.timePassed >= self.fireCoolDown:
             self.timePassed -= self.fireCoolDown
 
-            if len(Global.enemyService.lanes[self.lane]) == 0:
+            if len(Global.mapService.lanes[self.lane]) == 0:
                 break
             self.animator.playAnimation(self.shootAnim)
             Global.soundHandler.play(self.shootSound)

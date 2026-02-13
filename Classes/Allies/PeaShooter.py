@@ -4,7 +4,7 @@ from Classes.EntityBase import BaseEntity
 from Utils.Game.AnimationHandler import AnimationTrack
 
 class PeaShooter(BaseEntity):
-    def __init__(self, screen, position: pygame.Vector2, bulletGroup, lane: int):
+    def __init__(self, screen, position: pygame.Vector2, lane: int):
         super().__init__(position=position, hitboxSize=pygame.Vector2(100, 100), imageSize=pygame.Vector2(150, 160), lane=lane)
         self.hp = 30
         self.damage = 10
@@ -14,7 +14,7 @@ class PeaShooter(BaseEntity):
         self.Animator.playAnimation(self.IdleAnim)
 
         self.screen = screen
-        self.bulletGroup = bulletGroup
+        self.bulletGroup = Global.allyService.bulletGroup
 
         self.shootBehavior = Shoot(
             screen=self.screen, 
