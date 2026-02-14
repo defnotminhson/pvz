@@ -22,7 +22,7 @@ class AllyService:
             
             for tile in tilesGroup:
                 if tile.rect.collidepoint(mouse_pos) and tile.allyPlanted == "nil":
-                    tile.allyPlanted = self.spawnAlly("PeaShooter", tile.rect.center, tile.lane)
+                    tile.allyPlanted = self.spawnAlly("SunFlower", tile.rect.center, tile.lane)
                     tile.Taken = True
     
     def update(self):

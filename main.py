@@ -23,7 +23,7 @@ Global.mapService.mapPos = (440, 220)
 Global.mapService.tileSize = (80, 75)
 tiles = Global.mapService.createGrid(15, 10, 4, (0, 200, 0, 0))
 
-background = pygame.image.load("Assets/Backgrounds/frontyard3.png").convert()
+background = pygame.image.load("Assets/Backgrounds/Frontyard.png").convert()
 background = pygame.transform.scale(background, (Global.screenWidth + 500, Global.screenHeight + 150))
 
 pygame.mouse.set_visible(False)
