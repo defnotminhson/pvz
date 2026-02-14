@@ -12,6 +12,7 @@ from Utils.Core.CollisionHandler import bulletCollision, enemyCollision
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((Global.screenWidth, Global.screenHeight))
+Global.screen = screen
 clock = pygame.time.Clock()
 
 Global.mapService = MapService(screen)
