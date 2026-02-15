@@ -7,6 +7,9 @@ screen : pygame.display.set_mode = None
 animationFPS = 12
 animationCache = {}
 
+inGameSun = 10000
+inGameCurrentSelected = None
+
 from Services.MapService import MapService
 from Services.UiService import UiService
 from Services.AllyService import AllyService

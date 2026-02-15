@@ -1,5 +1,6 @@
 import pygame, Global
 from Utils.Core.Loader import loadModule
+from Classes.Database import data
 
 class AllyService:
     def __init__(self, screen):
@@ -21,8 +22,10 @@ class AllyService:
             mouse_pos = event.pos
             
             for tile in tilesGroup:
-                if tile.rect.collidepoint(mouse_pos) and tile.allyPlanted == "nil":
-                    tile.allyPlanted = self.spawnAlly("SunFlower", tile.rect.center, tile.lane)
+                if tile.rect.collidepoint(mouse_pos) and not tile.allyPlanted and Global.inGameCurrentSelected:
+                    tile.allyPlanted = self.spawnAlly(Global.inGameCurrentSelected, tile.rect.center, tile.lane)
+                    Global.inGameSun -= data[Global.inGameCurrentSelected]["price"]
+                    Global.inGameCurrentSelected = None
                     tile.Taken = True
     
     def update(self):

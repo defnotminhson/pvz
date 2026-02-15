@@ -12,7 +12,7 @@ class Tile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [posX, posY]
         self.clicked = False
-        self.allyPlanted = "nil"
+        self.allyPlanted = None
         self.lane = 0
 
 class MapService:
@@ -64,10 +64,10 @@ class MapService:
                 highlight(tile.rect.size, tile.rect.topleft, self.screen, (150, 150, 150, 60))
 
             if tile.clicked:
-                highlight(tile.rect.size, tile.rect.topleft, self.screen, (0, 255, 0, 80))
+                highlight(tile.rect.size, tile.rect.topleft, self.screen, (150, 150, 150, 80))
 
-            if tile.allyPlanted != "nil" and not tile.allyPlanted.alive:
-                tile.allyPlanted = "nil" 
+            if tile.allyPlanted and not tile.allyPlanted.alive:
+                tile.allyPlanted = None
 
 
     def destroyGrid(self):

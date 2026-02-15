@@ -12,7 +12,8 @@ class UiService:
 
         startPos = pygame.Vector2(100,100)
         for i in range(0,10):
-            newCard = Card(startPos + pygame.Vector2(i * 100, 0), None, None, pygame.Vector2(150,140))
+            newCard = Card(startPos + pygame.Vector2(i * 100, 0), pygame.Vector2(150,140), i)
+            newCard.updateInfo()
             self.cards.add(newCard)
     
     def update(self):
@@ -20,5 +21,9 @@ class UiService:
         self.cards.update()
         self.uiGroup.draw(self.screen)
         self.uiGroup.update()
+
+    def handleClick(self, event):
+        for card in self.cards:
+            card.handleClick(event)
         
     

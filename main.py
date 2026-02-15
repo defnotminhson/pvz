@@ -37,6 +37,7 @@ while True:
         Global.mapService.handleClick(event)
         Global.allyService.handleClick(event, tiles)
         Global.enemyService.handleClick(event, tiles)
+        Global.uiService.handleClick(event)
 
     screen.fill("white")
     screen.blit(background, (0, -100))
