@@ -20,6 +20,8 @@ Global.uiService = UiService(screen)
 Global.allyService = AllyService(screen)
 Global.enemyService = EnemyService(screen)
 
+Global.uiService.inGameUi()
+
 Global.mapService.mapPos = (440, 220)
 Global.mapService.tileSize = (80, 75)
 tiles = Global.mapService.createGrid(15, 10, 4, (0, 200, 0, 0))

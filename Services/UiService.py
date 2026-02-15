@@ -1,26 +1,30 @@
 import pygame,Global
 from Classes.Menu.Pointer import Pointer
-from Classes.Menu.Card import Card
     
 class UiService:
     def __init__(self, screen):
         self.crosshair = Pointer("Assets/Menu/Pointers/Pointer.png")
         self.screen = screen
         self.uiGroup = pygame.sprite.Group()
-        self.uiGroup.add(self.crosshair)
         self.cards = pygame.sprite.Group()
 
-        startPos = pygame.Vector2(100,100)
-        for i in range(0,10):
-            newCard = Card(startPos + pygame.Vector2(i * 95, 0), i)
-            newCard.updateInfo()
-            self.cards.add(newCard)
+        self.font = pygame.font.SysFont("comicsansms", 18)
+        self.inGameUiHandler = None
+        
+        self.uiGroup.add(self.crosshair)
+    
+    def inGameUi(self):
+        from Classes.Menu.InGameUi import inGameUi
+        self.inGameUiHandler = inGameUi()
     
     def update(self):
         self.cards.draw(self.screen)
         self.cards.update()
         self.uiGroup.draw(self.screen)
         self.uiGroup.update()
+
+        if self.inGameUiHandler:
+            self.inGameUiHandler.update()
 
     def handleClick(self, event):
         for card in self.cards:
