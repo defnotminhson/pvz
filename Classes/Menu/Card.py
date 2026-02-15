@@ -8,11 +8,11 @@ class Card(pygame.sprite.Sprite):
         self.textRect = self.priceText.get_rect()
         self.textRect.midbottom = (self.size.x / 2, self.size.y - 20)
 
-    def __init__(self, position, size: pygame.Vector2, order: int):
+    def __init__(self, position, order: int):
         super().__init__()
         self.position = position
-        self.size = size
-        self.image = pygame.Surface(size, pygame.SRCALPHA)
+        self.size = pygame.Vector2(150,140)
+        self.image = pygame.Surface(self.size, pygame.SRCALPHA)
         self.baseImage = pygame.transform.scale(
             pygame.image.load("Assets/Menu/Card.png").convert_alpha(),
             self.size
@@ -20,7 +20,7 @@ class Card(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = position
 
-        self.hitbox = pygame.Rect(0, 0, size.x - 50, size.y - 30)
+        self.hitbox = pygame.Rect(0, 0, self.size.x - 50, self.size.y - 30)
         self.hitbox.center = position
         self.price = None
         self.allyName = None
@@ -28,7 +28,7 @@ class Card(pygame.sprite.Sprite):
         self.clicked = False
 
         self.previewImage = pygame.Surface(self.size, pygame.SRCALPHA)
-        self.font = pygame.font.Font(None, 24)
+        self.font = pygame.font.SysFont("comicsansms", 18)
         self.textColor = (0, 0, 0)
         Card.drawText(self)
         
@@ -41,7 +41,7 @@ class Card(pygame.sprite.Sprite):
             self.previewImage = pygame.Surface(self.size, pygame.SRCALPHA)
             self.previewImage = pygame.transform.scale(
                 pygame.image.load(Database.data[name]["preview"]).convert_alpha()
-                , self.size - pygame.Vector2(30,30)
+                , self.size - pygame.Vector2(70,55)
             )
             self.previewRect = self.previewImage.get_rect()
             Card.drawText(self)
@@ -61,7 +61,7 @@ class Card(pygame.sprite.Sprite):
                 
     def update(self):
         self.image = self.baseImage.copy()
-        self.image.blit(self.previewImage, (15,10))
+        self.image.blit(self.previewImage, (35,20))
         self.image.blit(self.priceText, self.textRect)
 
         mouse_pos = pygame.mouse.get_pos()

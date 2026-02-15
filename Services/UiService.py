@@ -12,7 +12,7 @@ class UiService:
 
         startPos = pygame.Vector2(100,100)
         for i in range(0,10):
-            newCard = Card(startPos + pygame.Vector2(i * 100, 0), pygame.Vector2(150,140), i)
+            newCard = Card(startPos + pygame.Vector2(i * 95, 0), i)
             newCard.updateInfo()
             self.cards.add(newCard)
     

@@ -27,6 +27,7 @@ class AllyService:
                     Global.inGameSun -= data[Global.inGameCurrentSelected]["price"]
                     Global.inGameCurrentSelected = None
                     tile.Taken = True
+            Global.inGameCurrentSelected = None
     
     def update(self):
         self.bulletGroup.update()
