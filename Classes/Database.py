@@ -7,6 +7,6 @@ data = {
     },
     "SunFlower": {
         "price" : 50,
-        "preview" : "Assets/Allies/SunFlower/Idle/frame0002.png"
+        "preview" : "Assets/Allies/SunFlower/Idle/frame0000.png"
     }
 }

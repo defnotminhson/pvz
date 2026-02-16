@@ -2,7 +2,6 @@ import pygame, Global
 from Utils.Game.AnimationHandler import AnimationTrack, Animator
 from Classes.Projectiles.Bullet import Bullet
 
-
 class Shoot:
     def __init__(
             self, 
