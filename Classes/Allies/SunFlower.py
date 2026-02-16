@@ -9,11 +9,12 @@ class SunFlower(BaseEntity):
         self.hp = 30
         self.damage = 10
         self.sunGain = 25
-        self.coolDown = 5
+        self.coolDown = 10
 
         self.imageOffset = pygame.Vector2(0,-10)
         self.IdleAnim = AnimationTrack(self, "Assets/Allies/SunFlower/Idle", self.imageSize, 2, 6, True, 1)
         self.gainAnim = AnimationTrack(self, "Assets/Allies/SunFlower/Gain", self.imageSize, 8, Global.animationFPS, False, 2)
+        self.gainAnim.repeat = 2
         self.Animator.playAnimation(self.IdleAnim)
 
         self.screen = screen

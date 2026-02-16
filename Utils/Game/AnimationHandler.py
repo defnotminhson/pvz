@@ -4,7 +4,11 @@ class AnimationTrack:
     def __init__(self, sprite: pygame.sprite.Sprite,  folder: str, size: pygame.Vector2, frameCount: int, fps: int, looped: bool, priority: int):
         self.priority = priority
         self.playing = False
+
         self.Looped = looped
+        self.repeat = 1
+        self.currentRepeat = 1
+
         self.size = size
         self.timePassed = 0
         self.frameDuration = 1 / fps
@@ -26,9 +30,6 @@ class AnimationTrack:
             Global.animationCache[cache_key] = frames
 
         self.frames = Global.animationCache[cache_key]
-
-        # for i in range(0,frameCount):
-        #     self.frames.append(pygame.transform.scale(pygame.image.load(f"{folder}/frame{i:04d}.png"), self.size))
     
 class Animator:
     def __init__(self):
@@ -49,17 +50,21 @@ class Animator:
         frames = animationTrack.frames
 
         while animationTrack.timePassed >= animationTrack.frameDuration:
-            if animationTrack.timePassed >= animationTrack.frameDuration * animationTrack.frameCount and not animationTrack.Looped:
+            if animationTrack.timePassed >= animationTrack.frameDuration * animationTrack.frameCount * animationTrack.repeat and not animationTrack.Looped:
                 animationTrack.timePassed = 0
                 self.CurrentAnimations.pop(highest, None)
+                animationTrack.currentRepeat = 1
                 break
+                
             animationTrack.timePassed -= animationTrack.frameDuration
         
             animationTrack.currentFrame += 1
             if animationTrack.currentFrame >= animationTrack.frameCount:
-                if animationTrack.Looped:
+                if animationTrack.Looped or animationTrack.currentRepeat < animationTrack.repeat:
                     animationTrack.currentFrame = 0
+                    animationTrack.currentRepeat += 1
                 else:
+                    animationTrack.currentRepeat = 1
                     animationTrack.currentFrame = 0
                     self.CurrentAnimations.pop(highest, None)
                     break
