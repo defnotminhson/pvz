@@ -7,7 +7,7 @@ class SoundHandler:
 
         self.sounds = {}
         self.musicVolume = 0.4
-        self.sfxVolume = 0.05
+        self.sfxVolume = 0.1
 
     def loadFolder(self, rootFolder: str):
         """
