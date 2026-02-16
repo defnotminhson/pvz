@@ -58,17 +58,17 @@ class TextLabel(pygame.sprite.Sprite):
 
     # ----------------------------
 
-    def set_text(self, new_text):
+    def setText(self, new_text):
         """Change displayed text (only rerender if needed)"""
         if new_text != self.text:
             self.text = new_text
             self._render()
 
-    def set_color(self, color):
+    def setColor(self, color):
         self.color = color
         self._render()
 
-    def set_position(self, pos):
+    def setPosition(self, pos):
         self.pos = pygame.Vector2(pos)
         self._render()
 

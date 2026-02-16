@@ -1,6 +1,7 @@
 import pygame, Global
 from Classes.Menu.Card import Card
 from Classes.Menu.SunIcon import SunIcon
+from Classes.Menu.Components.TextLabel import TextLabel
 #from Services.UiService import UiService
 
 class inGameUi():
@@ -13,11 +14,11 @@ class inGameUi():
             newCard.updateInfo()
             Global.uiService.cards.add(newCard)
         
-        self.font = pygame.font.SysFont("comicsansms", 18)
-
+        self.sunLabel = TextLabel(str(Global.inGameSun), (100, 135), 24, (255,255,50), "Assets/Fonts/Rimouski.OTF", True)
+        Global.uiService.uiGroup.add(self.sunLabel)
     def destroy(self):
         pass
 
     def update(self):
-        pass#self.image.blit(self.sunText, self.textRect)
+        self.sunLabel.setText(str(Global.inGameSun))
     

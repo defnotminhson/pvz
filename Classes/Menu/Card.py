@@ -1,13 +1,9 @@
 import pygame, Global
 from Classes import Database
 from Utils.Game.Highlight import highlight
+from Classes.Menu.Components.TextLabel import TextLabel
 
 class Card(pygame.sprite.Sprite):
-    def drawText(self):
-        self.priceText = self.font.render(str(self.price), True, self.textColor)
-        self.textRect = self.priceText.get_rect()
-        self.textRect.midbottom = (self.size.x / 2, self.size.y - 20)
-
     def __init__(self, position, order: int):
         super().__init__()
         self.position = position
@@ -28,9 +24,15 @@ class Card(pygame.sprite.Sprite):
         self.clicked = False
 
         self.previewImage = pygame.Surface(self.size, pygame.SRCALPHA)
-        self.font = pygame.font.SysFont("comicsansms", 18)
         self.textColor = (0, 0, 0)
-        Card.drawText(self)
+        self.priceText = TextLabel(
+            str(self.price), 
+            self.position + pygame.Vector2(0,35), 
+            18, 
+            self.textColor, 
+            "Assets/Fonts/Rimouski.OTF", 
+            True
+            )
         
 
     def updateInfo(self):
@@ -44,7 +46,7 @@ class Card(pygame.sprite.Sprite):
                 , self.size - pygame.Vector2(70,55)
             )
             self.previewRect = self.previewImage.get_rect()
-            Card.drawText(self)
+            self.priceText.setText(str(self.price))
 
     def handleClick(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -53,7 +55,6 @@ class Card(pygame.sprite.Sprite):
             if self.hitbox.collidepoint(mouse_pos):
                 self.clicked = True
                 if Global.inGameSun >= Database.data[self.allyName]["price"]:
-                    print("switched")
                     Global.inGameCurrentSelected = self.allyName
 
         if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
@@ -62,7 +63,7 @@ class Card(pygame.sprite.Sprite):
     def update(self):
         self.image = self.baseImage.copy()
         self.image.blit(self.previewImage, (35,20))
-        self.image.blit(self.priceText, self.textRect)
+        Global.screen.blit(self.priceText.image, self.priceText.rect)
 
         mouse_pos = pygame.mouse.get_pos()
         # hover glow
