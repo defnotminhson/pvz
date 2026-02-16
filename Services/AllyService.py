@@ -25,8 +25,13 @@ class AllyService:
                 if tile.rect.collidepoint(mouse_pos) and not tile.allyPlanted and Global.inGameCurrentSelected:
                     tile.allyPlanted = self.spawnAlly(Global.inGameCurrentSelected, tile.rect.center, tile.lane)
                     Global.inGameSun -= data[Global.inGameCurrentSelected]["price"]
-                    Global.inGameCurrentSelected = None
                     tile.Taken = True
+
+                    for card in Global.uiService.cards:
+                        if card.name == Global.inGameCurrentSelected:
+                            card.available = False
+                            break
+                    Global.inGameCurrentSelected = None
             Global.inGameCurrentSelected = None
     
     def update(self):
