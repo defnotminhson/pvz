@@ -37,7 +37,7 @@ class MapService:
             for tile in self.tilesGroup:
                 if tile.clicked:
                     tile.clicked = False
-                    break
+                    break 
 
     def createGrid(self, cols: int, rows: int, offset: int, color: RGBA):
         #self.tilesGroup.clear()

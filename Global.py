@@ -7,7 +7,7 @@ screen : pygame.display.set_mode = None
 animationFPS = 12
 animationCache = {}
 
-inGameSun = 150
+inGameSun = 150000
 inGameCurrentSelected = None
 
 from Services.MapService import MapService
@@ -18,6 +18,9 @@ mapService : MapService = None
 uiService : UiService = None
 allyService : AllyService = None
 enemyService : EnemyService = None
+
+from Utils.Core.EventHandler import EventHandler
+eventHandler : EventHandler = None
 
 from Utils.Game.SoundHandler import SoundHandler
 soundHandler = SoundHandler()

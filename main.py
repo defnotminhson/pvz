@@ -1,15 +1,15 @@
 import ctypes
 ctypes.windll.user32.SetProcessDPIAware()
 
-import pygame, sys, Global
+import pygame, Global
 
 from Services.MapService import MapService
 from Services.UiService import UiService
 from Services.AllyService import AllyService
 from Services.EnemyService import EnemyService
 from Utils.Core.CollisionHandler import bulletCollision, enemyCollision
+from Utils.Core.EventHandler import EventHandler
 
-# pygame setup
 pygame.init()
 screen = pygame.display.set_mode((Global.screenWidth, Global.screenHeight))
 Global.screen = screen
@@ -19,6 +19,7 @@ Global.mapService = MapService(screen)
 Global.uiService = UiService(screen)
 Global.allyService = AllyService(screen)
 Global.enemyService = EnemyService(screen)
+Global.eventHandler = EventHandler()
 
 Global.uiService.inGameUi()
 
@@ -31,15 +32,7 @@ background = pygame.transform.scale(background, (Global.screenWidth + 500, Globa
 
 pygame.mouse.set_visible(False)
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-        Global.mapService.handleClick(event)
-        Global.allyService.handleClick(event, tiles)
-        Global.enemyService.handleClick(event, tiles)
-        Global.uiService.handleClick(event)
+    Global.eventHandler.gameLoop(tiles)
 
     screen.fill("white")
     screen.blit(background, (0, -100))
@@ -50,7 +43,6 @@ while True:
     Global.enemyService.update()
     Global.mapService.update()
     Global.uiService.update()
-    
 
     pygame.display.flip()
     Global.dt = clock.tick(144) / 1000
